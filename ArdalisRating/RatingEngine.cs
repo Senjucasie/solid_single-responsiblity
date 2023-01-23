@@ -31,21 +31,8 @@ namespace ArdalisRating
             switch (policy.Type)
             {
                 case PolicyType.Auto:
-                    Logger.Log("Rating AUTO policy...");
-                    Logger.Log("Validating policy.");
-                    if (String.IsNullOrEmpty(policy.Make))
-                    {
-                        Logger.Log("Auto policy must specify Make");
-                        return;
-                    }
-                    if (policy.Make == "BMW")
-                    {
-                        if (policy.Deductible < 500)
-                        {
-                            Rating = 1000m;
-                        }
-                        Rating = 900m;
-                    }
+                    var autopolicy = new AutoPolicyRater(this.Logger, this);
+                    autopolicy.Rate(policy);
                     break;
 
                 case PolicyType.Land:
